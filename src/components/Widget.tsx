@@ -148,16 +148,7 @@ const imagesNight = {
   "Moderate or heavy snow with thunder": patchyThunderSnow,
 } as { [key: string]: string };
 
-interface WidgetProps {
-  dataForThisWidget: {
-    data: DataWeather;
-    isLoading: boolean;
-    error: boolean;
-  };
-  latitudeLongitudeForThisWidget: number[];
-}
-
-export const Widget = ({ dataForThisWidget, latitudeLongitudeForThisWidget }: WidgetProps) => {
+export const Widget = ({ dataForThisWidget, latitudeLongitudeForThisWidget }: any) => {
   if (!dataForThisWidget.data || dataForThisWidget.isLoading) {
     return <div>Loading...</div>;
   }

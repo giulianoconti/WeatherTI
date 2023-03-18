@@ -69,7 +69,7 @@ export default function App() {
             </div>
           }
         />
-        <Route path="/:lat/:lon" element={<Home showThisLatLong={showThisLatLong} setShowThisLatLong={setShowThisLatLong} />} />
+        <Route path="/:lat/:lon" element={<Home />} />
       </Routes>
     </BrowserRouter>
   );
