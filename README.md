@@ -6,4 +6,4 @@ WeatherTI is a simple weather app that uses the weatherapi API to get the curren
 
 ## Link
 
-[WeatherTI](https://weather-ti.example/)
+[WeatherTI](https://weather-ti.vercel.app/)
