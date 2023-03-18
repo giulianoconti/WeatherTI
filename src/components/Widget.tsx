@@ -162,7 +162,7 @@ export const Widget = ({ dataForThisWidget, latitudeLongitudeForThisWidget }: an
       <h2>{dataForThisWidget?.data.current?.temp_c}°</h2>
       <img
         src={
-          dataForThisWidget.data.current.is_day === 1
+          dataForThisWidget?.data.current?.is_day === 1
             ? imagesDay[dataForThisWidget.data.current.condition.text]
             : imagesNight[dataForThisWidget.data.current.condition.text]
         }
