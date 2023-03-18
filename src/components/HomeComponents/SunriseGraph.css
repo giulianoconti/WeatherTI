@@ -1,0 +1,21 @@
+.sunrise_graph {
+  background: linear-gradient(
+    180deg,
+    rgb(252, 237, 27) 0%,
+    rgb(255, 146, 51) 48%,
+    rgb(0, 0, 0) 48%,
+    rgb(0, 0, 0) 52%,
+    rgb(152, 67, 103) 52%,
+    rgb(37, 96, 119) 100%
+  );
+  position: relative;
+  border-radius: 16px;
+}
+
+.sunrise_graph_text {
+  position: absolute;
+  color: rgb(0, 0, 0);
+  font-size: 12px;
+  font-weight: 600;
+  bottom: 50%;
+}

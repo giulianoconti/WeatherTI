@@ -1,0 +1,67 @@
+.Widget {
+  aspect-ratio: 342/175;
+  background-image: url("../assets/rectangle.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  flex: 1 1 500px;
+  height: calc(51.17vw - 16px);
+  margin: 16px auto;
+  max-height: 255.85px;
+  max-width: 500px;
+  position: relative;
+  width: calc(100vw - 32px);
+}
+
+.Widget h2 {
+  color: #ffffff;
+  font-size: 64px;
+  font-weight: 400;
+  left: 16px;
+  position: absolute;
+  top: 16px;
+}
+
+.Widget img {
+  height: 30vw;
+  max-height: 200px;
+  max-width: 200px;
+  position: absolute;
+  right: 16px;
+  top: -16px;
+  width: 30vw;
+}
+
+.Widget h4 {
+  bottom: 16px;
+  color: rgba(235, 235, 245, 0.6);
+  font-size: 13px;
+  font-weight: 400;
+  position: absolute;
+}
+
+.Widget h4:nth-child(3) {
+  left: 16px;
+}
+
+.Widget h4:nth-child(4) {
+  left: 56px;
+}
+
+.Widget h3 {
+  bottom: 32px;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 400;
+  left: 16px;
+  position: absolute;
+}
+
+.Widget h5 {
+  bottom: 16px;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 400;
+  position: absolute;
+  right: 16px;
+}

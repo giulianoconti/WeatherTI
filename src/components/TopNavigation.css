@@ -1,0 +1,49 @@
+.TopNavigation {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding-top: 2vh;
+  width: 100%;
+}
+
+.TopNavigation h2 {
+  color: #ffffff;
+  font-size: 7vw;
+  font-weight: 400;
+}
+
+.TopNavigation img {
+  height: 6vw;
+  width: 6vw;
+}
+
+.TopNavigation_search {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 100%;
+  position: relative;
+  margin-top: 1vh;
+}
+
+.TopNavigation_search img {
+  height: 4vw;
+  position: absolute;
+  width: 4vw;
+  left: 2vw;
+}
+
+.TopNavigation input {
+  background: linear-gradient(168.44deg, rgba(0, 30, 255, 0.26) 1.62%, rgba(13, 0, 255, 0.26) 95.72%);
+  border-radius: 10px;
+  color: rgba(235, 235, 245, 0.6);
+  font-size: 4vw;
+  font-weight: 400;
+  height: 9vw;
+  padding: 2vw 2vw 2vw 7vw;
+  width: 100%;
+}

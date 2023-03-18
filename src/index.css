@@ -1,0 +1,92 @@
+@font-face {
+  font-family: "SF Pro Display";
+  src: url("./fonts/SFProDisplay200.woff2") format("woff2");
+  font-weight: 200;
+  font-style: normal;
+}
+@font-face {
+  font-family: "SF Pro Display";
+  src: url("./fonts/SFProDisplay400.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: "SF Pro Display";
+  src: url("./fonts/SFProDisplay500.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: "SF Pro Display";
+  src: url("./fonts/SFProDisplay600.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+}
+@font-face {
+  font-family: "SF Pro Display";
+  src: url("./fonts/SFProDisplay700.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "SF Pro Display", sans-serif;
+  outline: none;
+  border: none;
+}
+
+body {
+  background-color: #2e335a;
+  overflow: hidden;
+}
+
+.flex {
+  display: flex;
+}
+
+.column {
+  flex-direction: column;
+}
+
+.mb-16 {
+  margin-bottom: 16px;
+}
+
+.mt_12 {
+  margin-top: 12px;
+}
+
+.scroll {
+  overflow-y: scroll;
+  height: 100%;
+}
+
+.w_100 {
+  width: 100%;
+}
+
+@media (pointer: none), (pointer: fine) {
+  body {
+    overflow: auto;
+  }
+
+  body::-webkit-scrollbar {
+    background-color: rgba(51, 31, 92, 0.8);
+    width: 8px;
+  }
+
+  body::-webkit-scrollbar-track {
+    background-color: rgba(51, 31, 92, 0.8);
+  }
+
+  body::-webkit-scrollbar-thumb {
+    background-color: rgba(117, 76, 211, 0.8);
+  }
+
+  body::-webkit-scrollbar-thumb:hover {
+    background-color: rgb(117, 76, 211);
+  }
+}
