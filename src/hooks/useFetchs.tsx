@@ -17,7 +17,7 @@ export function useFetchs<T extends Record<string, any>>(urls: string[]): FetchR
       return acc;
     }, {} as FetchResult<T>)
   );
-  
+
   useEffect(() => {
     const fetchData = async () => {
       const requests = urls.map(async (url) => {
@@ -39,7 +39,8 @@ export function useFetchs<T extends Record<string, any>>(urls: string[]): FetchR
     };
 
     fetchData();
-  }, [urls[0]]);
+  }, [urls.length]);
 
+  console.log(urls.length);
   return dataFetch;
 }

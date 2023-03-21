@@ -18,13 +18,15 @@ type PositionError = {
 };
 
 export const useCurrentLocation = (): Coords => {
-  const [coords, setCoords] = useState<Coords>({ actualLatitude: 0, actualLongitude: 0 });
+ /*  console.log("useCurrentLocation") */
+  const [coords, setCoords] = useState<Coords>({ actualLatitude: 9999, actualLongitude: 9999 });
 
   useEffect(() => {
     const handleSuccess = (position: Position) => {
       setCoords({
-        actualLatitude: position.coords.latitude,
-        actualLongitude: position.coords.longitude,
+        // Only 2 decimals
+        actualLatitude: Math.round(position.coords.latitude * 100) / 100,
+        actualLongitude: Math.round(position.coords.longitude * 100) / 100,
       });
     };
 

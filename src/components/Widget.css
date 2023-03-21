@@ -1,20 +1,27 @@
-.Widget {
+.widget {
+  align-items: flex-start;
+  display: flex;
+  flex: 1 1 370px;
+  justify-content: center;
+  max-height: 255.85px;
+  position: relative;
+}
+
+.widget_link {
   aspect-ratio: 342/175;
   background-image: url("../assets/rectangle.svg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  flex: 1 1 500px;
-  height: calc(51.17vw - 16px);
-  margin: 16px auto;
+  display: block;
   max-height: 255.85px;
   max-width: 500px;
   position: relative;
-  width: calc(100vw - 32px);
+  width: 100%;
 }
 
-.Widget h2 {
-  color: #ffffff;
+.widget_link h2 {
+  color: rgb(255, 255, 255);
   font-size: 64px;
   font-weight: 400;
   left: 16px;
@@ -22,17 +29,16 @@
   top: 16px;
 }
 
-.Widget img {
-  height: 30vw;
+.widget_link img {
   max-height: 200px;
   max-width: 200px;
   position: absolute;
-  right: 16px;
+  right: 0;
   top: -16px;
-  width: 30vw;
+  width: 40%;
 }
 
-.Widget h4 {
+.widget_link h4 {
   bottom: 16px;
   color: rgba(235, 235, 245, 0.6);
   font-size: 13px;
@@ -40,15 +46,15 @@
   position: absolute;
 }
 
-.Widget h4:nth-child(3) {
+.widget_link h4:nth-child(3) {
   left: 16px;
 }
 
-.Widget h4:nth-child(4) {
+.widget_link h4:nth-child(4) {
   left: 56px;
 }
 
-.Widget h3 {
+.widget_link h3 {
   bottom: 32px;
   color: #ffffff;
   font-size: 14px;
@@ -57,11 +63,46 @@
   position: absolute;
 }
 
-.Widget h5 {
+.widget_link h5 {
   bottom: 16px;
   color: #ffffff;
   font-size: 13px;
   font-weight: 400;
   position: absolute;
   right: 16px;
+}
+
+.widget_delete_btn {
+  background-color: transparent;
+  border-radius: 10px;
+  border: 1px solid #ffffff;
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+  flex-direction: column;
+  font-size: 16px;
+  margin: auto 0 0 8px;
+  padding: 8px 2px;
+}
+
+.widget_delete_btn_img {
+  height: 16px;
+  width: 16px;
+  rotate: 90deg;
+}
+
+.widget_delete_btn_text {
+  writing-mode: vertical-rl;
+  white-space: nowrap;
+}
+
+@media screen and (max-width: 319px) {
+  .widget_link h2 {
+    font-size: 40px;
+  }
+}
+
+@media (pointer: none), (pointer: fine) {
+  .widget_delete_btn:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
 }

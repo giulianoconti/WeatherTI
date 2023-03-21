@@ -1,49 +1,114 @@
-.TopNavigation {
+.topNavigation {
   align-items: center;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  height: 96px;
   justify-content: space-between;
-  padding-top: 2vh;
+  margin: 16px 0;
   width: 100%;
 }
 
-.TopNavigation h2 {
+.topNavigation_title {
   color: #ffffff;
-  font-size: 7vw;
+  font-size: 32px;
   font-weight: 400;
 }
 
-.TopNavigation img {
-  height: 6vw;
-  width: 6vw;
+.topNavigation_points_icon {
+  height: 32px;
+  width: 32px;
 }
 
-.TopNavigation_search {
+.topNavigation_search {
   align-items: center;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-between;
-  width: 100%;
+  margin-top: 8px;
   position: relative;
-  margin-top: 1vh;
+  width: 100%;
 }
 
-.TopNavigation_search img {
-  height: 4vw;
+.topNavigation_search_img {
+  height: 20px;
+  left: 8px;
+  top: 10px;
   position: absolute;
-  width: 4vw;
-  left: 2vw;
+  width: 20px;
 }
 
-.TopNavigation input {
+.topNavigation_search_input {
   background: linear-gradient(168.44deg, rgba(0, 30, 255, 0.26) 1.62%, rgba(13, 0, 255, 0.26) 95.72%);
   border-radius: 10px;
   color: rgba(235, 235, 245, 0.6);
-  font-size: 4vw;
+  font-size: 20px;
   font-weight: 400;
-  height: 9vw;
-  padding: 2vw 2vw 2vw 7vw;
+  height: 40px;
+  padding: 8px 8px 8px 32px;
   width: 100%;
+  transition: width 0.3s ease;
+}
+
+.topNavigation_search_input:focus {
+  color: rgb(255, 255, 255);
+}
+
+.topNavigation_search_input_open {
+  color: rgb(255, 255, 255);
+  width: calc(100% - 72px);
+}
+
+.topNavigation_cancel_btn {
+  align-items: center;
+  background-color: transparent;
+  color: rgb(255, 255, 255);
+  display: flex;
+  font-size: 20px;
+  height: 40px;
+  justify-content: center;
+  position: absolute;
+  right: -96px;
+  top: 0;
+  animation: slideIn 0.3s ease forwards;
+  width: 64px;
+}
+
+@keyframes slideIn {
+  0% {
+    right: -96px;
+  }
+  100% {
+    right: 0;
+  }
+}
+
+.topNavigation_search_options_container {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin-top: 8px;
+  width: 100%;
+}
+
+.topNavigation_search_option {
+  background-color: transparent;
+  color: rgba(235, 235, 245, 0.6);
+  display: flex;
+  font-size: 20px;
+  margin-bottom: 8px;
+  padding: 4px;
+  width: 100%
+}
+
+.topNavigation_search_inputValue_text {
+  color: rgb(255, 255, 255);
+}
+
+.topNavigation_search_text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
