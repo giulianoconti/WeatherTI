@@ -46,10 +46,6 @@ body {
   background-repeat: no-repeat;
 }
 
-.bg_clear_day {
-  background-image: url("./assets/weather_img/weather_clearDay.svg");
-}
-
 .flex {
   display: flex;
 }
