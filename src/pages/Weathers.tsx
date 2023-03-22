@@ -19,8 +19,7 @@ export const Weathers = () => {
   useEffect(() => {
     if (locations?.length > 0) {
       const allUrls = locations.map(
-        ({ latitude, longitude }) =>
-          `https://api.weatherapi.com/v1/forecast.json?key=${import.meta.env.VITE_API_KEY}&q=${latitude},${longitude}&days=3&aqi=no&alerts=no`
+        ({ latitude, longitude }) => `https://api.weatherapi.com/v1/forecast.json?key=${import.meta.env.VITE_API_KEY}&q=${latitude},${longitude}&days=3&hour=1`
       );
       setUrls(allUrls);
       addLocationsInLocalStorage();

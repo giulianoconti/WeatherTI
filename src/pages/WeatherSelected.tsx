@@ -3,7 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import { useFetchs } from "../hooks/useFetchs";
 import { DataWeather } from "../interfaces/Interfaces";
 import { SunriseGraph } from "../components/WeatherSelectedComponents/SunriseGraph";
-import { imagesDay, imagesNight, imagesSvg } from "../components/Images";
+import { imagesBgDay, imagesBgNight, imagesDay, imagesNight, imagesSvg } from "../components/Images";
 import "./WeatherSelected.css";
 
 export const WeatherSelected = (): JSX.Element => {
@@ -13,9 +13,7 @@ export const WeatherSelected = (): JSX.Element => {
 
   const { lat, lon } = useParams<{ lat: string; lon: string }>();
 
-  const url = `
-  https://api.weatherapi.com/v1/forecast.json?key=${import.meta.env.VITE_API_KEY}&q=${lat},${lon}&days=3&aqi=no&alerts=no
-  `;
+  const url = `https://api.weatherapi.com/v1/forecast.json?key=${import.meta.env.VITE_API_KEY}&q=${lat},${lon}&days=3`;
   const dataFetch = useFetchs([url]);
   const dataWeather = dataFetch[url]?.data as DataWeather;
 
@@ -89,8 +87,15 @@ export const WeatherSelected = (): JSX.Element => {
   const windDirectionStyle = getWindDirectionStyle(dataWeather.current.wind_dir);
 
   return (
-    <div className="weatherSelected">
-      <div className="weatherSelected">
+    <div
+      className="weatherSelected"
+      style={
+        dataWeather?.current?.is_day === 1
+          ? { backgroundImage: `url(${imagesBgDay[dataWeather.current.condition.text]})` }
+          : { backgroundImage: `url(${imagesBgNight[dataWeather.current.condition.text]})` }
+      }
+    >
+      <div className="weatherSelected_container">
         <div className="weatherSelected_top_info_container">
           <h3 className={`weatherSelected_city ${openMoreInfo ? "open_city" : ""}`}>{dataWeather?.location.name}</h3>
           <div className="weatherSelected_current_container">
@@ -185,12 +190,9 @@ export const WeatherSelected = (): JSX.Element => {
             </div>
             <div className="weatherSelected_widget">
               <h3 className="weatherSelected_widget_title">SUNRISE</h3>
-              <div className="weatherSelected_widget_description">
-                {dataWeather?.forecast.forecastday[0].astro.sunrise}
-                <br />
-                <h5 className="weatherSelected_widget_description_footer">Sunset: {dataWeather?.forecast.forecastday[0].astro.sunset}</h5>
-              </div>
+              <div className="weatherSelected_widget_description">{dataWeather?.forecast.forecastday[0].astro.sunrise}</div>
               <SunriseGraph sunrise={dataWeather?.forecast.forecastday[0].astro.sunrise} sunset={dataWeather?.forecast.forecastday[0].astro.sunset} />
+              <h5 className="weatherSelected_widget_description_footer">Sunset: {dataWeather?.forecast.forecastday[0].astro.sunset}</h5>
             </div>
             <div className="weatherSelected_widget">
               <div className="weatherSelected_widget_title">
@@ -226,7 +228,7 @@ export const WeatherSelected = (): JSX.Element => {
                 {dataWeather.current.vis_km} km/h <br />
               </p>
               <p className="weatherSelected_widget_description">
-              {dataWeather.current.vis_km < 1 ? "Poor" : dataWeather.current.vis_km < 5 ? "Moderate" : dataWeather.current.vis_km < 10 ? "Good" : "Excellent"}
+                {dataWeather.current.vis_km < 1 ? "Poor" : dataWeather.current.vis_km < 5 ? "Moderate" : dataWeather.current.vis_km < 10 ? "Good" : "Excellent"}
               </p>
             </div>
           </div>

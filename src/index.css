@@ -41,6 +41,13 @@
 body {
   background-color: #2e335a;
   overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.bg_clear_day {
+  background-image: url("./assets/weather_img/weather_clearDay.svg");
 }
 
 .flex {

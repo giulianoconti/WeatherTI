@@ -41,6 +41,5 @@ export function useFetchs<T extends Record<string, any>>(urls: string[]): FetchR
     fetchData();
   }, [urls.length]);
 
-  console.log(urls.length);
   return dataFetch;
 }

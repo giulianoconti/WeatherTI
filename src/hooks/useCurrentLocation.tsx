@@ -18,7 +18,6 @@ type PositionError = {
 };
 
 export const useCurrentLocation = (): Coords => {
- /*  console.log("useCurrentLocation") */
   const [coords, setCoords] = useState<Coords>({ actualLatitude: 9999, actualLongitude: 9999 });
 
   useEffect(() => {

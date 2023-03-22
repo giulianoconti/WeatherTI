@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
-import { imagesDay, imagesNight } from "../components/Images";
-import { trashSvg } from "../components/Images";
+import { imagesDay, imagesNight, imagesSvg } from "../components/Images";
 import "./Widget.css";
 
 export const Widget = ({ dataForThisWidget, locationsForThisWidget, handleDeleteWidget }: any) => {
@@ -30,7 +29,7 @@ export const Widget = ({ dataForThisWidget, locationsForThisWidget, handleDelete
         <h5>{dataForThisWidget?.data.current.condition.text}</h5>
       </Link>
       <button className="widget_delete_btn" onClick={() => handleDeleteWidget(locationsForThisWidget.latitude, locationsForThisWidget.longitude)}>
-        <img className="widget_delete_btn_img" src={trashSvg} alt="delete" />
+        <img className="widget_delete_btn_img" src={imagesSvg.trash} alt="delete" />
         <p className="widget_delete_btn_text">Delete Item</p>
       </button>
     </div>
