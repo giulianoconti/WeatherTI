@@ -1,6 +1,5 @@
 .weatherSelected {
   align-items: center;
-/*   background-image: url(../assets/bg.png); */
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -95,7 +94,7 @@
 .weatherSelected_add_city {
   aspect-ratio: 266/100;
   background-color: transparent;
-  background-image: url("../assets/add_btn.svg");
+  background-image: url(/assets/add_btn.svg);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -113,7 +112,7 @@
 
 .weatherSelected_current_weather_btn {
   background-color: transparent;
-  background-image: url(../assets/back_current.svg);
+  background-image: url(/assets/back_current.svg);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -126,7 +125,7 @@
 
 .weatherSelected_favorites_weather_btn {
   background-color: transparent;
-  background-image: url(../assets/back_favorites.svg);
+  background-image: url(/assets/back_favorites.svg);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -540,7 +539,6 @@
 
   .weatherSelected_weather_info_for_hour::-webkit-scrollbar-thumb {
     background-color: rgba(117, 76, 211, 0.8);
-    border-radius: 16px;
   }
 
   .weatherSelected_weather_info_for_hour::-webkit-scrollbar-thumb:hover {
@@ -575,7 +573,7 @@
   .weatherSelected_back_container {
     display: none;
   }
-  
+
   @media screen and (max-width: 535px) {
     .weatherSelected_top_info_container {
       flex-direction: column;

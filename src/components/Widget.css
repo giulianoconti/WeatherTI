@@ -9,7 +9,7 @@
 
 .widget_link {
   aspect-ratio: 342/175;
-  background-image: url("../assets/rectangle.svg");
+  background-image: url("/assets/rectangle.svg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
