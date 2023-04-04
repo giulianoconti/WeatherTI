@@ -8,7 +8,7 @@ import "./index.css";
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <BrowserRouter>
     <Routes>
-      {/* <Route path="/" element={<Weathers />} />
+      {/* <Route path="/" element={<Weathers />} /> 
       <Route path="/:lat/:lon/latlon" element={<WeatherSelected />} />
       <Route path="*" element={<Error404 />} /> */}
       <Route path="/" element={<div>hola ruta home</div>} />
