@@ -8,10 +8,10 @@ export const TopNavigation = ({ setShowWidgets, handleAddWidget }: { setShowWidg
   const [citiesOptions, setCitiesOptions] = useState<CitiesOptions[]>([]);
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // only allow letters and spaces
-    if (e.target.value.match(/^[a-zA-Z ]*$/)) {
-      setInputValue(e.target.value.trim());
-    }
+    const value = e.target.value;
+    const cleanedValue = value.replace(/[^a-zA-Z,\s]/g, "");
+    const trimmedValue = cleanedValue.replace(/\s+/g, " ");
+    setInputValue(trimmedValue);
     if (e.target.value.length > 2) {
       fetch(`https://api.weatherapi.com/v1/search.json?key=${import.meta.env.VITE_API_KEY}&q=${e.target.value}`)
         .then((res) => res.json())
