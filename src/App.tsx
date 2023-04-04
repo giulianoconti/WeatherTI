@@ -24,7 +24,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Weathers />} />
         <Route path="/:lat/:lon/latlon" element={<WeatherSelected />} />
-        {/* <Route path="*" element={<Error404 />} /> */}
+        <Route path="*" element={<Error404 />} />
       </Routes>
     </BrowserRouter>
   );
