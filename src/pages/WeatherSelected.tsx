@@ -1,11 +1,13 @@
 import { useRef, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { useFetchs } from "../hooks/useFetchs";
 import { DataWeather } from "../interfaces/Interfaces";
-import { SunriseGraph } from "../components/WeatherSelectedComponents/SunriseGraph";
+import { useFetch } from "../hooks/useFetch";
 import { imagesBgDay, imagesBgNight, imagesDay, imagesNight, imagesSvg } from "../components/Images";
-import "./WeatherSelected.css";
+import { SunriseGraph } from "../components/WeatherSelectedComponents/SunriseGraph";
 import { WindGraph } from "../components/WeatherSelectedComponents/WindGraph";
+import { Loading } from "../components/Loading";
+import { Error404 } from "./Error404";
+import "./WeatherSelected.css";
 
 export const WeatherSelected = (): JSX.Element => {
   const infoRef = useRef<HTMLDivElement>(null);
@@ -15,15 +17,18 @@ export const WeatherSelected = (): JSX.Element => {
   const { lat, lon } = useParams<{ lat: string; lon: string }>();
 
   const url = `https://api.weatherapi.com/v1/forecast.json?key=${import.meta.env.VITE_API_KEY}&q=${lat},${lon}&days=3`;
-  const dataFetch = useFetchs([url]);
-  const dataWeather = dataFetch[url]?.data as DataWeather;
+  const { data: dataWeather, error, isLoading }: { data: DataWeather | null; error: Error | null | string; isLoading: boolean } = useFetch(url);
 
-  if (dataFetch[url]?.error) {
-    return <div>Error</div>;
+  if (error) {
+    return <Error404 />;
   }
 
-  if (dataFetch[url]?.isLoading || !dataFetch[url]?.data) {
-    return <div>Loading</div>;
+  if (isLoading || !dataWeather) {
+    return (
+      <div className="weatherSelected">
+        <Loading />
+      </div>
+    );
   }
 
   const handleStart = (event: React.SyntheticEvent<HTMLDivElement>): void => {
@@ -98,6 +103,7 @@ export const WeatherSelected = (): JSX.Element => {
           <hr className="weatherSelected_weather_info_hr" />
           <div className={`weatherSelected_weather_info_for_hour ${openMoreInfo ? "mb-16" : ""}`}>
             {dataWeather.forecast.forecastday.map((day: any) => {
+              let showThis = false;
               return (
                 <div className="weatherSelected_weather_info_for_hour_day_container" key={day.date}>
                   <h3 className={"weatherSelected_weather_info_day"}>{day.date}</h3>
@@ -105,9 +111,38 @@ export const WeatherSelected = (): JSX.Element => {
                   <div className="weatherSelected_weather_info_for_hour_each_day">
                     {day.hour.map((hour: any) => {
                       // If the day and time have already passed, do not show
-                      if (hour.time.slice(0, 10) === new Date().toISOString().slice(0, 10) && hour.time.slice(11, 13) < new Date().toString().slice(16, 18)) {
+                      if (
+                        dataWeather.location.localtime.slice(0, 10) === hour.time.slice(0, 10) &&
+                        parseInt(dataWeather.location.localtime.split(":")[0].slice(-2)) > parseInt(hour.time.slice(11, 13))
+                      ) {
+                        showThis = true;
                         return null;
                       }
+
+                      // Show only once, the current weather
+                      if (showThis) {
+                        showThis = false;
+                        return (
+                          <div className="weatherSelected_weather_box" key="now">
+                            <h4 className="weatherSelected_weather_box_hour">Now</h4>
+                            <img
+                              className="weatherSelected_weather_box_img"
+                              src={
+                                dataWeather.current.is_day === 1
+                                  ? imagesDay[dataWeather.current.condition.text]
+                                  : imagesNight[dataWeather.current.condition.text]
+                              }
+                              title={dataWeather.current.condition.text}
+                              alt="Weather Icon"
+                            />
+                            <h5 className="weatherSelected_weather_box_chance_rain">
+                              {hour.chance_of_rain ? hour.chance_of_rain + " %" : hour.chance_of_snow ? hour.chance_of_snow + " %" : ""}
+                            </h5>
+                            <h3 className="weatherSelected_weather_box_temp">{Math.round(dataWeather.current.temp_c)}°</h3>
+                          </div>
+                        );
+                      }
+
                       return (
                         <div className="weatherSelected_weather_box" key={hour.time}>
                           <h4 className="weatherSelected_weather_box_hour">{transformFormat24To12(hour.time.slice(11, 13))}</h4>
@@ -138,7 +173,9 @@ export const WeatherSelected = (): JSX.Element => {
                 <img className="weatherSelected_widget_icon" src={imagesSvg.humidity} alt="Humidity Icon" />
                 <h3>HUMIDITY</h3>
               </div>
-              <div className="weatherSelected_widget_description">{dataWeather.current.humidity} %</div>
+              <div className="weatherSelected_widget_description">
+                <h2>{dataWeather.current.humidity} %</h2>
+              </div>
               <div className="weatherSelected_widget_graph">
                 <div className="weatherSelected_widget_graph_fill" style={{ left: `${dataWeather.current.humidity}%` }} />
               </div>
@@ -150,27 +187,40 @@ export const WeatherSelected = (): JSX.Element => {
                 <h3>UV INDEX</h3>
               </div>
               <div className="weatherSelected_widget_description">
-                {dataWeather.current.uv} <br />
-                {dataWeather.current.uv < 3
-                  ? "Low"
-                  : dataWeather.current.uv < 6
-                  ? "Moderate"
-                  : dataWeather.current.uv < 8
-                  ? "High"
-                  : dataWeather.current.uv < 11
-                  ? "Very High"
-                  : "Extreme"}
+                <h2>
+                  {dataWeather.current.uv} <br />
+                  {dataWeather.current.uv < 3
+                    ? "Low"
+                    : dataWeather.current.uv < 6
+                    ? "Moderate"
+                    : dataWeather.current.uv < 8
+                    ? "High"
+                    : dataWeather.current.uv < 11
+                    ? "Very High"
+                    : "Extreme"}
+                </h2>
               </div>
               <div className="weatherSelected_widget_graph">
                 <div className="weatherSelected_widget_graph_fill" style={{ left: `${dataWeather.current.uv * 10}%` }} />
               </div>
             </div>
+
             <div className="weatherSelected_widget">
-              <h3 className="weatherSelected_widget_title">SUNRISE</h3>
-              <div className="weatherSelected_widget_description">{dataWeather?.forecast.forecastday[0].astro.sunrise}</div>
-              <SunriseGraph sunrise={dataWeather?.forecast.forecastday[0].astro.sunrise} sunset={dataWeather?.forecast.forecastday[0].astro.sunset} />
+              <div className="weatherSelected_widget_title">
+                <img className="weatherSelected_widget_icon" src={imagesSvg.sunrise} alt="Weather Icon" />
+                <h3>SUNRISE</h3>
+              </div>
+              <div className="weatherSelected_widget_description">
+                <h2>{dataWeather?.forecast.forecastday[0].astro.sunrise}</h2>
+              </div>
+              <SunriseGraph
+                sunrise={dataWeather?.forecast.forecastday[0].astro.sunrise}
+                sunset={dataWeather?.forecast.forecastday[0].astro.sunset}
+                localtimeHour={parseInt(dataWeather.location.localtime.split(":")[0].slice(-2))}
+              />
               <h5 className="weatherSelected_widget_description_footer">Sunset: {dataWeather?.forecast.forecastday[0].astro.sunset}</h5>
             </div>
+
             <div className="weatherSelected_widget">
               <div className="weatherSelected_widget_title">
                 <img className="weatherSelected_widget_icon" src={imagesSvg.wind} alt="Weather Icon" />
@@ -178,17 +228,52 @@ export const WeatherSelected = (): JSX.Element => {
               </div>
               <WindGraph dataWeather={dataWeather} />
             </div>
+
             <div className="weatherSelected_widget">
               <div className="weatherSelected_widget_title">
-                <img className="weatherSelected_widget_icon" src={imagesSvg.eye} alt="Weather Icon" />
+                <img className="weatherSelected_widget_icon" src={imagesSvg.visibility} alt="Weather Icon" />
                 <h3>VISIBILITY</h3>
               </div>
-              <p className="weatherSelected_widget_description">
-                {dataWeather.current.vis_km} km/h <br />
-              </p>
-              <p className="weatherSelected_widget_description">
-                {dataWeather.current.vis_km < 1 ? "Poor" : dataWeather.current.vis_km < 5 ? "Moderate" : dataWeather.current.vis_km < 10 ? "Good" : "Excellent"}
-              </p>
+              <div className="weatherSelected_widget_description">
+                <h2>
+                  {dataWeather.current.vis_km} km/h <br />
+                </h2>
+              </div>
+              <div className="weatherSelected_widget_description">
+                <h2>
+                  {dataWeather.current.vis_km < 1
+                    ? "Poor"
+                    : dataWeather.current.vis_km < 5
+                    ? "Moderate"
+                    : dataWeather.current.vis_km < 10
+                    ? "Good"
+                    : "Excellent"}
+                </h2>
+              </div>
+            </div>
+
+            <div className="weatherSelected_widget">
+              <div className="weatherSelected_widget_title">
+                <img className="weatherSelected_widget_icon" src={imagesSvg.humidity} alt="Humidity Icon" />
+                <h3>PRECIPITATION</h3>
+              </div>
+              <div className="weatherSelected_widget_description">
+                <h2>{dataWeather.forecast.forecastday[0].day.totalprecip_mm} mm</h2>
+                <h3>in last 24 hours</h3>
+              </div>
+              <div className="weatherSelected_widget_description">
+                <p>
+                  {dataWeather.forecast.forecastday[0].day.totalprecip_mm < 1
+                    ? "Less than 1 mm expected today"
+                    : dataWeather.forecast.forecastday[0].day.totalprecip_mm < 5
+                    ? "Less than 5 mm expected today"
+                    : dataWeather.forecast.forecastday[0].day.totalprecip_mm < 10
+                    ? "Less than 10 mm expected today"
+                    : dataWeather.forecast.forecastday[0].day.totalprecip_mm < 20
+                    ? "Less than 20 mm expected today"
+                    : "More than 20 mm expected today"}
+                </p>
+              </div>
             </div>
           </div>
         </div>

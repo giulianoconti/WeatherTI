@@ -29,7 +29,10 @@
   top: 16px;
 }
 
-.widget_link img {
+.widget_link img,
+.widget_loading {
+  aspect-ratio: 1/1;
+  display: flex;
   max-height: 200px;
   max-width: 200px;
   position: absolute;
@@ -73,15 +76,23 @@
 }
 
 .widget_delete_btn {
+  align-items: center;
   background-color: transparent;
   border-radius: 10px;
   border: 1px solid #ffffff;
   color: rgb(255, 255, 255);
   cursor: pointer;
+  display: flex;
   flex-direction: column;
   font-size: 16px;
+  gap: 4px;
+  justify-content: center;
   margin: auto 0 0 8px;
   padding: 8px 2px;
+}
+
+.widget_delete_btn:disabled {
+  visibility: hidden;
 }
 
 .widget_delete_btn_img {

@@ -10,7 +10,7 @@
   overflow-y: auto;
   position: fixed;
   right: 0;
-  top: 0;  
+  top: 0;
   width: 100%;
   z-index: 10;
 }
@@ -24,4 +24,14 @@
   padding: 16px;
   width: 100%;
   z-index: 10;
+}
+
+.widget_loading_container {
+  align-items: flex-start;
+  display: flex;
+  flex: 1 1 370px;
+  justify-content: center;
+  max-height: 255.85px;
+  position: relative;
+  filter: blur(3px);
 }

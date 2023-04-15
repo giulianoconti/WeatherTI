@@ -267,14 +267,19 @@
   background-color: rgba(51, 31, 92, 0.8);
   border-radius: 22px;
   border: 1px solid rgba(117, 76, 211, 0.8);
-  flex: 1 1 150px;
-  padding: 16px;
   display: flex;
   flex-direction: column;
+  flex: 1 1 150px;
   justify-content: space-between;
+  padding: 16px;
 }
 
 .weatherSelected_widget:nth-child(1) {
+  aspect-ratio: 8/1;
+  flex: 1 1 100%;
+}
+
+.weatherSelected_widget:nth-child(6) {
   aspect-ratio: 8/1;
   flex: 1 1 100%;
 }
@@ -294,7 +299,20 @@
 
 .weatherSelected_widget_description {
   color: rgb(255, 255, 255);
+}
+
+.weatherSelected_widget_description h2 {
   font-size: 32px;
+  font-weight: 600;
+}
+
+.weatherSelected_widget_description h3 {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.weatherSelected_widget_description p {
+  font-size: 14px;
   font-weight: 600;
 }
 
@@ -302,6 +320,7 @@
   color: rgba(255, 255, 255, 0.5);
   font-size: 12px;
   font-weight: 200;
+  text-align: end;
 }
 
 .weatherSelected_widget_img {
@@ -330,8 +349,10 @@
 
 .weatherSelected_widget_graph_compass {
   aspect-ratio: 1/1;
-  background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='100' ry='100' stroke='rgb(100,100,100)' stroke-width='20' stroke-dasharray='2%2c2' stroke-dashoffset='0' stroke-linecap='butt'/%3e%3c/svg%3e");
-  border-radius: 50%;
+  background-image: url(/assets/wind_graph_bg.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
   position: relative;
   width: 100%;
 }
@@ -399,12 +420,12 @@
 }
 
 .weatherSelected_widget_graph_compass h5 {
-  bottom: -8px;
+  bottom: 0;
   color: rgba(255, 255, 255, 0.5);
   font-size: 12px;
   font-weight: 200;
+  right: 0;
   position: absolute;
-  right: -8px;
 }
 
 .weatherSelected_widget_wind_arrow {
@@ -554,21 +575,22 @@
     background-color: rgba(51, 31, 92, 0.8);
     border-radius: 22px;
     border: 1px solid rgba(117, 76, 211, 0.8);
-    flex: 1 1 50px;
+    flex: 1 1 150px;
     padding: 16px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
   }
 
-  .weatherSelected_widget {
-    aspect-ratio: 8/1;
-    flex: 1 1 300px;
-  }
-
   .weatherSelected_widget:nth-child(1),
   .weatherSelected_widget:nth-child(2) {
+    aspect-ratio: 8/1;
     flex: 1 1 calc(50% - 16px);
+  }
+
+  .weatherSelected_widget:nth-child(6) {
+    aspect-ratio: 1/1;
+    flex: 1 1 150px;
   }
 
   .weatherSelected_weather_info_btn,
@@ -578,7 +600,7 @@
     display: none;
   }
 
-  @media screen and (max-width: 535px) {
+  @media screen and (max-width: 619px) {
     .weatherSelected_top_info_container {
       flex-direction: column;
     }
@@ -586,6 +608,12 @@
     .weatherSelected_city {
       font-size: 32px;
       margin: 0;
+    }
+
+    .weatherSelected_widget:nth-child(1),
+    .weatherSelected_widget:nth-child(2) {
+      aspect-ratio: 8/1;
+      flex: 1 1 calc(100% - 16px);
     }
   }
 }

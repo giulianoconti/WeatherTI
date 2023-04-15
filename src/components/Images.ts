@@ -209,12 +209,12 @@ export const imagesBgNight = {
 export const imagesSvg = {
   arrow_up: "/assets/arrow_up.svg",
   backIcons: "/assets/back_icons.svg",
-  eye: "/assets/eye.svg",
-  humidity: "/assets/humidity.svg",
-  options: "/assets/icon_options.svg",
+  visibility: "/assets/icons/visibility.svg",
+  humidity: "/assets/icons/humidity.svg",
   search: "/assets/icon_search.svg",
   sun: "/assets/sun.svg",
-  trash: "/assets/trash.svg",
-  uv_index: "/assets/uv_index.svg",
-  wind: "/assets/wind.svg",
+  sunrise: "/assets/icons/sunrise.svg",
+  trash: "/assets/icons/trash.svg",
+  uv_index: "/assets/icons/uv_index.svg",
+  wind: "/assets/icons/wind.svg",
 } as { [key: string]: string };

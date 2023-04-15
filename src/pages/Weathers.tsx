@@ -1,28 +1,38 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useCurrentLocation } from "../hooks/useCurrentLocation";
-import { useFetchs } from "../hooks/useFetchs";
-import { FetchResult, Location } from "../interfaces/Interfaces";
-import { TopNavigation } from "../components/TopNavigation";
-import { Widget } from "../components/Widget";
+import { DataWeather, Location } from "../interfaces/Interfaces";
+import { TopNavigation } from "../components/WeathersComponents/TopNavigation";
+import { Widget } from "../components/WeathersComponents/Widget";
 import "./Weathers.css";
 
 export const Weathers = () => {
   const INITIAL_LOCATION: Location = { latitude: 9999, longitude: 9999 };
 
   const [locations, setLocations] = useState<Location[]>([]);
-  const [urls, setUrls] = useState<string[]>([]);
   const [showWidgets, setShowWidgets] = useState(true);
+  const [data, setData] = useState([] as DataWeather[]);
+  const [isLoadingNewWidget, setIsLoadingNewWidget] = useState(false);
 
   const { actualLatitude = INITIAL_LOCATION.latitude, actualLongitude = INITIAL_LOCATION.longitude } = useCurrentLocation() || {};
-  const dataFetch = Object.values(useFetchs<FetchResult>(urls)) as FetchResult[];
 
   useEffect(() => {
     if (locations?.length > 0) {
-      const allUrls = locations.map(
-        ({ latitude, longitude }) => `https://api.weatherapi.com/v1/forecast.json?key=${import.meta.env.VITE_API_KEY}&q=${latitude},${longitude}&days=3&hour=1`
-      );
-      setUrls(allUrls);
-      addLocationsInLocalStorage();
+      const fetchData = async () => {
+        for (const { latitude, longitude } of locations) {
+          if (!data.some(({ location }) => location.lat === latitude && location.lon === longitude)) {
+            setIsLoadingNewWidget(true);
+            const response = await fetch(
+              `https://api.weatherapi.com/v1/forecast.json?key=${import.meta.env.VITE_API_KEY}&q=${latitude},${longitude}&days=3&hour=1`
+            );
+            const newData = await response.json();
+            setData((prevData) => [...prevData, newData]);
+            setIsLoadingNewWidget(false);
+          }
+        }
+        localStorage.setItem("locations", JSON.stringify(locations));
+      };
+
+      fetchData();
     }
   }, [locations]);
 
@@ -36,10 +46,6 @@ export const Weathers = () => {
       }
     }
   }, [actualLatitude, actualLongitude]);
-
-  const addLocationsInLocalStorage = () => {
-    localStorage.setItem("locations", JSON.stringify(locations));
-  };
 
   const existThisLocation = useCallback(
     (latitude = 0, longitude = 0) => {
@@ -58,7 +64,7 @@ export const Weathers = () => {
 
   const handleAddWidget = useCallback(
     (latitude = INITIAL_LOCATION.latitude, longitude = INITIAL_LOCATION.longitude) => {
-      if (latitude !== INITIAL_LOCATION.latitude && longitude !== INITIAL_LOCATION.longitude && !existThisLocation(latitude, longitude)) {
+      if (!existThisLocation(latitude, longitude)) {
         setLocations((prevLocations) => [...prevLocations, { latitude, longitude }]);
       } else {
         alert("This location already exists");
@@ -71,24 +77,57 @@ export const Weathers = () => {
     (latitude = 0, longitude = 0) => {
       const newLocations = locations.filter(({ latitude: lat, longitude: lon }) => lat !== latitude || lon !== longitude);
       setLocations(newLocations);
-      // update dataFetch
+      setData((prevData) => prevData.filter(({ location }) => location.lat !== latitude || location.lon !== longitude));
     },
     [locations]
   );
+
   return (
     <div className="weathers">
       <div className="weathers_container">
         <TopNavigation setShowWidgets={setShowWidgets} handleAddWidget={handleAddWidget} />
         {showWidgets &&
           locations.length > 0 &&
-          dataFetch?.map((info) => (
+          data.length > 0 &&
+          data.map((info) => (
             <Widget
-              key={info.data.location.country + info.data.location.name}
+              key={info.location.country + info.location.name}
               dataForThisWidget={info}
-              locationsForThisWidget={{ latitude: info.data.location.lat, longitude: info.data.location.lon }}
-              handleDeleteWidget={handleDeleteWidget}
+              locationsForThisWidget={{ latitude: info.location.lat, longitude: info.location.lon }}
+              handleDeleteWidget={info.location.lat === actualLatitude && info.location.lon === actualLongitude ? undefined : handleDeleteWidget}
             />
           ))}
+        {showWidgets && isLoadingNewWidget && (
+          <div className="widget_loading_container">
+            <Widget
+              dataForThisWidget={{
+                location: {
+                  name: "Loading...",
+                  country: "Loading...",
+                },
+                current: {
+                  temp_c: 0,
+                  is_day: 0,
+                  condition: {
+                    text: "",
+                  },
+                },
+                forecast: {
+                  forecastday: [
+                    {
+                      day: {
+                        maxtemp_c: 0,
+                        mintemp_c: 0,
+                      },
+                    },
+                  ],
+                },
+              }}
+              locationsForThisWidget={{ latitude: 0, longitude: 0 }}
+              handleDeleteWidget={undefined}
+            />
+          </div>
+        )}
       </div>
     </div>
   );

@@ -2,20 +2,40 @@
   background: linear-gradient(
     180deg,
     rgb(252, 237, 27) 0%,
-    rgb(255, 146, 51) 48%,
-    rgb(0, 0, 0) 48%,
-    rgb(0, 0, 0) 52%,
-    rgb(152, 67, 103) 52%,
+    rgb(255, 146, 51) 49%,
+    rgb(0, 0, 0) 49%,
+    rgb(0, 0, 0) 51%,
+    rgb(152, 67, 103) 51%,
     rgb(37, 96, 119) 100%
   );
-  position: relative;
   border-radius: 16px;
+  margin-top: 12px;
+  position: relative;
+}
+
+.sunrise_graph_localtime {
+  border-right: 1px dashed rgb(255, 255, 255);
+  height: 100%;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 1px;
+}
+
+.sunrise_graph_localtime_text {
+  color: rgb(255, 255, 255);
+  font-size: 12px;
+  font-weight: 800;
+  margin-top: -14px;
+  text-shadow: -1px -1px 0 rgb(0, 0, 0), 1px -1px 0 rgb(0, 0, 0), -1px 1px 0 rgb(0, 0, 0), 1px 1px 0 rgb(0, 0, 0);
+  white-space: nowrap;
 }
 
 .sunrise_graph_text {
-  position: absolute;
-  color: rgb(0, 0, 0);
-  font-size: 12px;
-  font-weight: 600;
   bottom: 50%;
+  color: rgb(255, 255, 255);
+  font-size: 12px;
+  font-weight: 800;
+  position: absolute;
+  text-shadow: -1px -1px 0 rgb(0, 0, 0), 1px -1px 0 rgb(0, 0, 0), -1px 1px 0 rgb(0, 0, 0), 1px 1px 0 rgb(0, 0, 0);
 }
